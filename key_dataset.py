@@ -35,20 +35,20 @@ N_FFT = min(1024, (2 * SAMPLE_DURATION * SAMPLE_RATE) // TORCHVISION_MIN_IMAGE_D
 N_MELS = IMAGE_HEIGHT // 2 # for waveform to melspectrogram transformation
 SET_TYPES = {"train": 0.7, "validate": 0.2, "test": 0.1} # train-validation-test fractions
 # KEY, KEY_CLASS, and KEY_QUALITY mappings in circle of fifths order
-KEY_MAPPINGS = ("C Maj", "A min",
-                "G Maj", "E min",
-                "D Maj", "B min",
-                "A Maj", "F# min",
-                "E Maj", "C# min",
-                "B Maj", "G# min",
-                "F# Maj", "D# min",
-                "C# Maj", "A# min",
-                "G# Maj", "F min",
-                "D# Maj", "C min",
-                "A# Maj", "G min",
-                "F Maj", "D min")
-KEY_CLASS_MAPPINGS = tuple(f"{KEY_MAPPINGS[i]} / {KEY_MAPPINGS[i + 1]}" for i in range(0, len(KEY_MAPPINGS), 2)) # ("C Maj / A min", ... , "F Maj / D min")
-KEY_QUALITY_MAPPINGS = tuple(key_name.split(" ")[1] for key_name in KEY_CLASS_MAPPINGS[0].split(" / ")) # (Maj, min)
+KEY_MAPPINGS = ("C", "Am",
+                "G", "Em",
+                "D", "Bm",
+                "A", "F#m",
+                "E", "C#m",
+                "B", "G#m",
+                "F#", "D#m",
+                "C#", "A#m",
+                "G#", "Fm",
+                "D#", "Cm",
+                "A#", "Gm",
+                "F", "Dm")
+KEY_CLASS_MAPPINGS = tuple(f"{KEY_MAPPINGS[i]} / {KEY_MAPPINGS[i + 1]}" for i in range(0, len(KEY_MAPPINGS), 2)) # ("C / Am", ... , "F / Dm")
+KEY_QUALITY_MAPPINGS = tuple(('Major', 'minor'))
 ##################################################
 
 
