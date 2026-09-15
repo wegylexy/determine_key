@@ -18,6 +18,7 @@ import key_dataset as key_data
 from key_class_neural_network import key_class_nn
 from key_quality_neural_network import key_quality_nn, CONFIDENCE_THRESHOLD
 from collections import Counter
+from flask import Flask, request, jsonify
 # sys.argv = ("./determine_key.py", "/Users/philliplong/Desktop/Coding/artificial_dj/data/key_class_nn.pth", "/Users/philliplong/Desktop/Coding/artificial_dj/data/key_quality_nn.pth", "")
 ##################################################
 
@@ -140,14 +141,19 @@ class key_determiner():
 # PROOF OF FUNCTION
 ##################################################
 
-if __name__ == "__main__":
+key_determiner = key_determiner(nn_filepath = {
+    "class": "key_class_nn.pth",
+    "quality": "key_quality_nn.pth"
+})
 
-    song_filepath = sys.argv[3]
-    nn_filepath = {"class": sys.argv[1], "quality": sys.argv[2]}
-    key_determiner = key_determiner(nn_filepath = nn_filepath)
-    key_changes = key_determiner.determine_key_changes(song_filepath)
-    # for time, mode_key in key_changes:
-    #     print(f"Time: {time:.2f}s, Key: {mode_key}")
-    print(' -> '.join(key for time, key in key_changes))
+app = Flask(__name__)
+
+@app.route('/determine', methods=['POST'])
+def determine():
+    # TODO: put the song at the path
+    return jsonify(key_determiner.determine_key_changes(request.json['path']))
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
 
 ##################################################
